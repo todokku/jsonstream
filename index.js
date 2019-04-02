@@ -57,6 +57,6 @@ app.get('/', (req, res) => {
  * Start the application.
  */
 
-app.listen(settings.port, () => {
+app.listen(process.env.PORT || settings.port, () => {
     console.log(`Application runnable on url ${settings.host}:${settings.port}/ .`);
 });
