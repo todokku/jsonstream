@@ -3,7 +3,6 @@
  */
 
 module.exports = {
-    host: 'http://ngauto-6521.nodechef.com',
     port: '7787',
-    dbUrl: 'mongodb://ngauto-6521:ElBjTMoiPSvQyB50k6WjSi0tzFF13z@db-ngauto-6521.nodechef.com:5392/ngauto' 
+    dbUrl: 'mongodb://jsonstream_admin:rbSsq667@ds237373.mlab.com:37373/heroku_q12mvj12' 
 }

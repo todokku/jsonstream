@@ -49,7 +49,7 @@ app.get('/api/get', (req, res) => {
  */
 
 app.get('/', (req, res) => {
-    res.send('Welcome to Ngauto. Enjoy your stay.');
+    res.send('Welcome to jsonstream. Enjoy your stay.');
 });
 
 
@@ -58,5 +58,5 @@ app.get('/', (req, res) => {
  */
 
 app.listen(process.env.PORT || settings.port, () => {
-    console.log(`Application runnable on url ${settings.host}:${settings.port}/ .`);
+    console.log(`Application runnable!`);
 });
