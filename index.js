@@ -5,6 +5,7 @@
 const express   = require('express'),
     bodyParser  = require('body-parser');
     mongoose    = require('mongoose'),
+    cors        = require('cors'),
     settings    = require('./settings.js'),
     pipes       = require('./pipes.js'),
     schemas     = require('./schemas.js'),
@@ -15,6 +16,8 @@ const express   = require('express'),
  */
 
 app = express();
+app.use(cors());
+
 mongoose.connect(settings.dbUrl, {useNewUrlParser: true});
 app.use(bodyParser.json());
 db = mongoose.connection;
