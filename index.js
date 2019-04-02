@@ -30,7 +30,7 @@ flow.feed(schemas.collection);
  */
 
 app.get('/api/set/:domain', (req, res) => {
-    flow.remove("domains").where({_id:"primary"});
+    flow.remove("domains").where({_id: 'primary'});
     flow.insert("domains").values({shape: req.params.domain, _id: "primary"});
     res.sendStatus(200);
 });
@@ -43,6 +43,17 @@ app.get('/api/set/:domain', (req, res) => {
 app.get('/api/get', (req, res) => {
     flow.findOne("domains").where({_id: 'primary'}).then((result) => {
         res.send({shape: result.shape});
+    });
+});
+
+
+/**
+ * Redirect user to current url.
+ */
+
+app.get('/kick', (req, res) => {
+    flow.findOne("domains").where({_id: 'primary'}).then((result) => {
+        res.redirect(result.shape);
     });
 });
 
