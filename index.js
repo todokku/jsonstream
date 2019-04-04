@@ -57,21 +57,9 @@ app.get('/api/set/:domain/:key', (req, res) => {
  * Get current ngrok url.
  */
 
-app.get('/api/get', (req, res) => {
-    flow.findOne('domains').where({_id: 'primary'}).then((result) => {
-        res.send({shape: result.shape});
-    });
-});
-
-
-/**
- * Redirect user to current url.
- */
-
-app.get('/kick/', (req, res) => {
-    flow.findOne('domains').where({_id: 'primary'}).then((result) => {
-        res.redirect(result.shape);
-    });
+app.get('/api/get', async (req, res) => {
+    let data = await flow.findOne('domains').where({_id: 'primary'});
+    res.send({shape: data.shape});
 });
 
 
@@ -79,10 +67,39 @@ app.get('/kick/', (req, res) => {
  * Redirect user to url by key.
  */
 
-app.get('/kick/:key', (req, res) => {
-    flow.findOne('domains').where({_id: req.params.key}).then((result) => {
-        res.redirect(result.shape);
-    });
+app.get('/api/delete/:key', (req, res) => {
+    flow.remove('domains').where({_id: req.params.key});
+    res.sendStatus(200);
+});
+
+
+/**
+ * Redirect user to url by key.
+ */
+
+app.get('/api/list', async (req, res) => {
+    let data = await flow.find('domains').where({});
+    res.send(data);
+});
+
+
+/**
+ * Redirect user to current url.
+ */
+
+app.get('/kick', async (req, res) => {
+    let data = await flow.findOne('domains').where({_id: 'primary'});
+    res.redirect(data.shape);
+});
+
+
+/**
+ * Redirect user to url by key.
+ */
+
+app.get('/kick/:key', async (req, res) => {
+    let data = await flow.findOne('domains').where({_id: req.params.key});
+    res.redirect(data.shape);
 });
 
 

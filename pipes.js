@@ -42,7 +42,8 @@ module.exports = {
          * @param {Object} values
          */
 
-        Array.prototype.values = function(values) {
+        Array.prototype.values = async function(values) {
+
             let name = this[0].toString();
             let model = flow.mongoose.model(name, flow.schemas[name]);
             let build = new model(values);
@@ -98,7 +99,7 @@ module.exports = {
          * @returns {Array}
          */
 
-        Array.prototype.change = function(from) {
+        Array.prototype.change = async function(from) {
             let name = this[0].toString();
             let op = this[1];
             return [name, from, op];
@@ -111,7 +112,8 @@ module.exports = {
          * @param {Object} into
          */
 
-        Array.prototype.into = function(into) {
+        Array.prototype.into = async function(into) {
+
             let name = this[0];
             let from = this[1];
             let op = this[2];
@@ -186,25 +188,22 @@ module.exports = {
          * Execute find/removal process.
          * 
          * @param {Object} values
-         * @returns {Promise}
+         * @returns {Object}
          */
 
-        Array.prototype.where = function(values) {
+        Array.prototype.where = async function(values) {
+
             let name = this[0].toString();
             let op = this[1];
 
             if(op.indexOf('find') > -1) {
-                return new Promise((resolve) => {
-                    if(op === 'findOne') {
-                        var result = flow.mongoose.connection.collection(name).findOne(values);
-                        resolve(result);
-                    } else {
-                        var result = flow.mongoose.connection.collection(name).find(values);
-                        result.toArray().then((result) => {
-                            resolve(result.toArray());
-                        });
-                    }
-                });
+                if(op === 'findOne') {
+                    let result = await flow.mongoose.connection.collection(name).findOne(values);
+                    return result;
+                } else {
+                    let result = await flow.mongoose.connection.collection(name).find(values);
+                    return result.toArray();
+                }
             } else {
                 if(op === 'removeOne') {
                     flow.mongoose.connection.collection(name).deleteOne(values);
