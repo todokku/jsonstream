@@ -15,12 +15,18 @@ const express   = require('express'),
  * Launch app prerequisites.
  */
 
+// Express setup.
 app = express();
 app.use(cors());
 
+// Mongoose setup.
 mongoose.connect(settings.dbUrl, {useNewUrlParser: true});
-app.use(bodyParser.json());
 db = mongoose.connection;
+
+//Body parser setup.
+app.use(bodyParser.json());
+
+// Flow setup.
 flow = new pipes.flow(mongoose);
 flow.feed(schemas.collection);
 
@@ -30,10 +36,21 @@ flow.feed(schemas.collection);
  */
 
 app.get('/api/set/:domain', (req, res) => {
-    flow.remove("domains").where({_id: 'primary'});
-    flow.insert("domains").values({shape: req.params.domain, _id: "primary"});
+    flow.remove('domains').where({_id: 'primary'});
+    flow.insert('domains').values({shape: req.params.domain, _id: 'primary'});
     res.sendStatus(200);
 });
+
+
+/**
+ * Set ngrok url with key.
+ */
+
+app.get('/api/set/:domain/:key', (req, res) => {
+    flow.insert('domains').values({shape: req.params.domain, _id: req.params.key});
+    res.sendStatus(200);
+});
+
 
 
 /**
@@ -41,7 +58,7 @@ app.get('/api/set/:domain', (req, res) => {
  */
 
 app.get('/api/get', (req, res) => {
-    flow.findOne("domains").where({_id: 'primary'}).then((result) => {
+    flow.findOne('domains').where({_id: 'primary'}).then((result) => {
         res.send({shape: result.shape});
     });
 });
@@ -51,8 +68,19 @@ app.get('/api/get', (req, res) => {
  * Redirect user to current url.
  */
 
-app.get('/kick', (req, res) => {
-    flow.findOne("domains").where({_id: 'primary'}).then((result) => {
+app.get('/kick/', (req, res) => {
+    flow.findOne('domains').where({_id: 'primary'}).then((result) => {
+        res.redirect(result.shape);
+    });
+});
+
+
+/**
+ * Redirect user to url by key.
+ */
+
+app.get('/kick/:key', (req, res) => {
+    flow.findOne('domains').where({_id: req.params.key}).then((result) => {
         res.redirect(result.shape);
     });
 });
