@@ -42,7 +42,7 @@ module.exports = {
          * @param {Object} values
          */
 
-        Array.prototype.values = async function(values) {
+        Array.prototype.values = function(values) {
 
             let name = this[0].toString();
             let model = flow.mongoose.model(name, flow.schemas[name]);
@@ -99,7 +99,7 @@ module.exports = {
          * @returns {Array}
          */
 
-        Array.prototype.change = async function(from) {
+        Array.prototype.change = function(from) {
             let name = this[0].toString();
             let op = this[1];
             return [name, from, op];
@@ -112,7 +112,7 @@ module.exports = {
          * @param {Object} into
          */
 
-        Array.prototype.into = async function(into) {
+        Array.prototype.into = function(into) {
 
             let name = this[0];
             let from = this[1];

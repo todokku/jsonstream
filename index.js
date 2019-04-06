@@ -6,9 +6,10 @@ const express   = require('express'),
     bodyParser  = require('body-parser');
     mongoose    = require('mongoose'),
     cors        = require('cors'),
-    settings    = require('./settings.js'),
-    pipes       = require('./pipes.js'),
-    schemas     = require('./schemas.js'),
+    serveStatic = require('serve-static')
+    settings    = require('./core/settings.js'),
+    pipes       = require('./core/pipes.js'),
+    schemas     = require('./core/schemas.js'),
 
 
 /**
@@ -23,8 +24,11 @@ app.use(cors());
 mongoose.connect(settings.dbUrl, {useNewUrlParser: true});
 db = mongoose.connection;
 
-//Body parser setup.
+// Body parser setup.
 app.use(bodyParser.json());
+
+// Servestatic setup.
+app.use(express.static('fe/dist'));
 
 // Flow setup.
 flow = new pipes.flow(mongoose);
@@ -104,11 +108,11 @@ app.get('/kick/:key', async (req, res) => {
 
 
 /**
- * Default endpoint.
+ * Root path.
  */
 
 app.get('/', (req, res) => {
-    res.send('Welcome to jsonstream. Enjoy your stay.');
+    res.sendFile('/index.html');
 });
 
 
