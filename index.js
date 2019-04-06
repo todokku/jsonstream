@@ -68,6 +68,16 @@ app.get('/api/get', async (req, res) => {
 
 
 /**
+ * Get current ngrok url.
+ */
+
+app.get('/api/get/:key', async (req, res) => {
+    let data = await flow.findOne('domains').where({_id: req.params.key});
+    res.send({shape: data.shape});
+});
+
+
+/**
  * Redirect user to url by key.
  */
 
