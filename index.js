@@ -131,5 +131,5 @@ app.get('/', (req, res) => {
  */
 
 app.listen(process.env.PORT || settings.port, () => {
-    console.log(`Application runnable!`);
+    console.log(`Application running!`);
 });
