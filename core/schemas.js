@@ -1,7 +1,7 @@
 module.exports = {
     collection: [
         {
-            name: 'multipurpose',
+            name: 'generals',
 
             template: {
                 shape: {
