@@ -39,9 +39,9 @@ flow.feed(schemas.collection);
  * Set ngrok url.
  */
 
-app.get('/api/set/:domain', (req, res) => {
-    flow.remove('domains').where({_id: 'primary'});
-    flow.insert('domains').values({shape: req.params.domain, _id: 'primary'});
+app.get('/api/set/:value', (req, res) => {
+    flow.remove('multipurpose').where({_id: 'primary'});
+    flow.insert('multipurpose').values({shape: req.params.value, _id: 'primary'});
     res.sendStatus(200);
 });
 
@@ -50,8 +50,8 @@ app.get('/api/set/:domain', (req, res) => {
  * Set ngrok url with key.
  */
 
-app.get('/api/set/:domain/:key', (req, res) => {
-    flow.insert('domains').values({shape: req.params.domain, _id: req.params.key});
+app.get('/api/set/:value/:key', (req, res) => {
+    flow.insert('multipurpose').values({shape: req.params.value, _id: req.params.key});
     res.sendStatus(200);
 });
 
@@ -62,7 +62,7 @@ app.get('/api/set/:domain/:key', (req, res) => {
  */
 
 app.get('/api/get', async (req, res) => {
-    let data = await flow.findOne('domains').where({_id: 'primary'});
+    let data = await flow.findOne('multipurpose').where({_id: 'primary'});
     res.send({shape: data.shape});
 });
 
@@ -72,7 +72,7 @@ app.get('/api/get', async (req, res) => {
  */
 
 app.get('/api/get/:key', async (req, res) => {
-    let data = await flow.findOne('domains').where({_id: req.params.key});
+    let data = await flow.findOne('multipurpose').where({_id: req.params.key});
     res.send({shape: data.shape});
 });
 
@@ -82,7 +82,7 @@ app.get('/api/get/:key', async (req, res) => {
  */
 
 app.get('/api/delete/:key', (req, res) => {
-    flow.remove('domains').where({_id: req.params.key});
+    flow.remove('multipurpose').where({_id: req.params.key});
     res.sendStatus(200);
 });
 
@@ -92,7 +92,7 @@ app.get('/api/delete/:key', (req, res) => {
  */
 
 app.get('/api/list', async (req, res) => {
-    let data = await flow.find('domains').where({});
+    let data = await flow.find('multipurpose').where({});
     res.send(data);
 });
 
@@ -102,7 +102,7 @@ app.get('/api/list', async (req, res) => {
  */
 
 app.get('/kick', async (req, res) => {
-    let data = await flow.findOne('domains').where({_id: 'primary'});
+    let data = await flow.findOne('multipurpose').where({_id: 'primary'});
     res.redirect(data.shape);
 });
 
@@ -112,7 +112,7 @@ app.get('/kick', async (req, res) => {
  */
 
 app.get('/kick/:key', async (req, res) => {
-    let data = await flow.findOne('domains').where({_id: req.params.key});
+    let data = await flow.findOne('multipurpose').where({_id: req.params.key});
     res.redirect(data.shape);
 });
 

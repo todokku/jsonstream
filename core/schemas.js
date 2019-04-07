@@ -1,7 +1,7 @@
 module.exports = {
     collection: [
         {
-            name: 'domains',
+            name: 'multipurpose',
 
             template: {
                 shape: {
