@@ -70,7 +70,7 @@ app.get('/api/set/:value', (req, res) => {
  * Set keyed value.
  */
 
-app.get('/api/set/:value/:key', (req, res) => {
+app.get('/api/set/:key/:value', (req, res) => {
     flow.insert('generals').values({shape: req.params.value, _id: req.params.key});
     res.sendStatus(200);
 });
@@ -83,6 +83,16 @@ app.get('/api/set/:value/:key', (req, res) => {
 app.get('/api/remove/:key', (req, res) => {
     flow.remove('generals').where({_id: req.params.key});
     res.sendStatus(200);
+});
+
+
+/**
+ * List all data.
+ */
+
+app.get('/api/list', async (req, res) => {
+    let data = await flow.find('generals').where({});
+    res.send(data);
 });
 
 
@@ -103,16 +113,6 @@ app.get('/kick', async (req, res) => {
 app.get('/kick/:key', async (req, res) => {
     let data = await flow.findOne('generals').where({_id: req.params.key});
     res.redirect(data.shape);
-});
-
-
-/**
- * List all data.
- */
-
-app.get('/api/list', async (req, res) => {
-    let data = await flow.find('generals').where({});
-    res.send(data);
 });
 
 
