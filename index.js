@@ -36,7 +36,27 @@ flow.feed(schemas.collection);
 
 
 /**
- * Set ngrok url.
+ * Get global value.
+ */
+
+app.get('/api/get', async (req, res) => {
+    let data = await flow.findOne('generals').where({_id: 'primary'});
+    res.send({shape: data.shape});
+});
+
+
+/**
+ * Get keyed value.
+ */
+
+app.get('/api/get/:key', async (req, res) => {
+    let data = await flow.findOne('generals').where({_id: req.params.key});
+    res.send({shape: data.shape});
+});
+
+
+/**
+ * Set global value.
  */
 
 app.get('/api/set/:value', (req, res) => {
@@ -47,7 +67,7 @@ app.get('/api/set/:value', (req, res) => {
 
 
 /**
- * Set ngrok url with key.
+ * Set keyed value.
  */
 
 app.get('/api/set/:value/:key', (req, res) => {
@@ -56,49 +76,18 @@ app.get('/api/set/:value/:key', (req, res) => {
 });
 
 
-
 /**
- * Get current ngrok url.
+ * Remove keyed value.
  */
 
-app.get('/api/get', async (req, res) => {
-    let data = await flow.findOne('generals').where({_id: 'primary'});
-    res.send({shape: data.shape});
-});
-
-
-/**
- * Get current ngrok url.
- */
-
-app.get('/api/get/:key', async (req, res) => {
-    let data = await flow.findOne('generals').where({_id: req.params.key});
-    res.send({shape: data.shape});
-});
-
-
-/**
- * Redirect user to url by key.
- */
-
-app.get('/api/delete/:key', (req, res) => {
+app.get('/api/remove/:key', (req, res) => {
     flow.remove('generals').where({_id: req.params.key});
     res.sendStatus(200);
 });
 
 
 /**
- * Redirect user to url by key.
- */
-
-app.get('/api/list', async (req, res) => {
-    let data = await flow.find('generals').where({});
-    res.send(data);
-});
-
-
-/**
- * Redirect user to current url.
+ * Redirect to global value.
  */
 
 app.get('/kick', async (req, res) => {
@@ -108,12 +97,22 @@ app.get('/kick', async (req, res) => {
 
 
 /**
- * Redirect user to url by key.
+ * Redirect to keyed value.
  */
 
 app.get('/kick/:key', async (req, res) => {
     let data = await flow.findOne('generals').where({_id: req.params.key});
     res.redirect(data.shape);
+});
+
+
+/**
+ * List all data.
+ */
+
+app.get('/api/list', async (req, res) => {
+    let data = await flow.find('generals').where({});
+    res.send(data);
 });
 
 
