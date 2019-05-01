@@ -126,7 +126,7 @@ app.post('/api/set', async (req, res) => {
 
     await flow.removeOneFrom('generals').where({_id});
 
-    let result = await flow.insertInto('generals').values({shape: req.params.value, _id});
+    let result = await flow.insertInto('generals').values({shape: req.body.value, _id});
     res.sendStatus(result);
 });
 
