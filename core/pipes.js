@@ -25,7 +25,7 @@ module.exports = {
          * Insert record into collection.
          * 
          * Sample use:
-         * flow.insertInto("items").values({title: "title", content: "content"});
+         * flow.insertInto('items').values({title: 'title', content: 'content'});
          * 
          * @param {String} collection
          * @returns {Array}
@@ -64,7 +64,7 @@ module.exports = {
          * Change ALL collection records.
          * 
          * Sample use:
-         * flow.update("items").change({title: "title"}).into({title: "new title"});
+         * flow.update('items').change({title: 'title'}).into({title: 'new title'});
          * 
          * @param {String} collection
          * @returns {Array}
@@ -79,7 +79,7 @@ module.exports = {
          * Change one collection record.
          * 
          * Sample use:
-         * flow.updateOneIn("items").change({title: "title"}).into({title: "new title"});
+         * flow.updateOneIn('items').change({title: 'title'}).into({title: 'new title'});
          * 
          * @param {String} collection
          * @returns {Array}
@@ -119,7 +119,6 @@ module.exports = {
             if(op === 'update$') {
                 flow.mongoose.connection.collection(name).updateOne(from, {$set: into});
             } else {
-                console.log("asd");
                 flow.mongoose.connection.collection(name).updateMany(from, {$set: into});
             }
         } 
@@ -129,7 +128,7 @@ module.exports = {
          * Remove all from collection.
          * 
          * Sample use:
-         * flow.remove("items").where({title: "title"});
+         * flow.remove('items').where({title: 'title'});
          *  
          * @param {String} collection 
          */
@@ -143,7 +142,7 @@ module.exports = {
          * Remove one from collection.
          * 
          * Sample use:
-         * flow.removeOneFrom("items").where({title: "title"});
+         * flow.removeOneFrom('items').where({title: 'title'});
          *  
          * @param {String} collection 
          */
@@ -157,7 +156,7 @@ module.exports = {
          * Find one record matching condition.
          * 
          * Sample use:
-         * flow.find("items").where({title: "title"});
+         * flow.find('items').where({title: 'title'});
          * 
          * @param {String} collection
          * @returns {Array}
@@ -172,7 +171,7 @@ module.exports = {
          * Find one record matching condition.
          * 
          * Sample use:
-         * flow.findOneIn("items").where({title: "title"});
+         * flow.findOneIn('items').where({title: 'title'});
          * 
          * @param {String} collection
          * @returns {Array}
