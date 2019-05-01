@@ -1,3 +1,13 @@
+/**
+ * Support Node.js script built on the top of mognoose technology.
+ * The purpose of this simple code is to SQL-ize mongoose
+ * syntax and simplify working with schemas/models/collections.
+ * 
+ * @author Andrej Noskaj
+ * @version 1.0.2
+ * @license MIT
+ */
+
 module.exports = {
 
     flow: function(_inst) {
@@ -125,7 +135,7 @@ module.exports = {
 
 
         /**
-         * Remove all from collection.
+         * Remove all records from collection.
          * 
          * Sample use:
          * flow.remove('items').where({title: 'title'});

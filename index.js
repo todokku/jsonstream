@@ -1,3 +1,10 @@
+/* * * * * * * * * * * * *
+ *                       *
+ *  Application setup >  *
+ *                       *
+ * * * * * * * * * * * * *
+
+
 /**
  * Require necessary modules.
  */
@@ -33,6 +40,15 @@ app.use(express.static('fe/dist'));
 // Flow setup.
 flow = new pipes.flow(mongoose);
 flow.feed(collections.dataSet);
+
+
+
+
+/* * * * * * * * * * * * *
+ *                       *
+ *   Endpoints setup >   *
+ *                       *
+ * * * * * * * * * * * * *
 
 
 /**
