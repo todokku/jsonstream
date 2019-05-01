@@ -40,7 +40,7 @@ flow.feed(schemas.collection);
  */
 
 app.get('/api/get', async (req, res) => {
-    let data = await flow.findOne('generals').where({_id: 'primary'});
+    let data = await flow.findOneIn('generals').where({_id: 'primary'});
     res.send({shape: data.shape});
 });
 
@@ -50,7 +50,7 @@ app.get('/api/get', async (req, res) => {
  */
 
 app.get('/api/get/:key', async (req, res) => {
-    let data = await flow.findOne('generals').where({_id: req.params.key});
+    let data = await flow.findOneIn('generals').where({_id: req.params.key});
     res.send({shape: data.shape});
 });
 
@@ -59,10 +59,12 @@ app.get('/api/get/:key', async (req, res) => {
  * Set global value.
  */
 
-app.get('/api/set/:value', (req, res) => {
-    flow.remove('generals').where({_id: 'primary'});
-    flow.insert('generals').values({shape: req.params.value, _id: 'primary'});
-    res.sendStatus(200);
+app.get('/api/set/:value', async (req, res) => {
+
+    await flow.removeOneFrom('generals').where({_id: 'primary'});
+
+    let result = await flow.insertInto('generals').values({shape: req.params.value, _id: 'primary'});
+    res.sendStatus(result);
 });
 
 
@@ -70,9 +72,12 @@ app.get('/api/set/:value', (req, res) => {
  * Set keyed value.
  */
 
-app.get('/api/set/:key/:value', (req, res) => {
-    flow.insert('generals').values({shape: req.params.value, _id: req.params.key});
-    res.sendStatus(200);
+app.get('/api/set/:key/:value', async (req, res) => {
+
+    await flow.removeOneFrom('generals').where({_id: req.params.key});
+
+    let result = await flow.insertInto('generals').values({shape: req.params.value, _id: req.params.key});
+    res.sendStatus(result);
 });
 
 
@@ -81,7 +86,7 @@ app.get('/api/set/:key/:value', (req, res) => {
  */
 
 app.get('/api/remove/:key', (req, res) => {
-    flow.remove('generals').where({_id: req.params.key});
+    flow.removeOneFrom('generals').where({_id: req.params.key});
     res.sendStatus(200);
 });
 
@@ -101,7 +106,7 @@ app.get('/api/list', async (req, res) => {
  */
 
 app.get('/kick', async (req, res) => {
-    let data = await flow.findOne('generals').where({_id: 'primary'});
+    let data = await flow.findOneIn('generals').where({_id: 'primary'});
     res.redirect(data.shape);
 });
 
@@ -111,7 +116,7 @@ app.get('/kick', async (req, res) => {
  */
 
 app.get('/kick/:key', async (req, res) => {
-    let data = await flow.findOne('generals').where({_id: req.params.key});
+    let data = await flow.findOneIn('generals').where({_id: req.params.key});
     res.redirect(data.shape);
 });
 

@@ -31,7 +31,7 @@ module.exports = {
          * @returns {Array}
          */
 
-        this.insert = (collection) => {
+        this.insertInto = (collection) => {
             return [collection];
         }
 
@@ -42,22 +42,20 @@ module.exports = {
          * @param {Object} values
          */
 
-        Array.prototype.values = function(values) {
+        Array.prototype.values = async function(values) {
 
             let name = this[0].toString();
             let model = flow.mongoose.model(name, flow.schemas[name]);
             let build = new model(values);
 
             try {
-                build.save((error) => {
-                    console.log(`Inserted into ${name}.`);
-                    if(error) {
-                        console.log(`Insertion into ${name} failed.`);
-                    }
-                });
+                await build.save();
+                console.log(`Inserted into ${name}.`);
+                return 200;
             }
             catch(exception) {
                 console.log(`Exception occured during saving.`);
+                return 400;
             }
         }
 
@@ -81,14 +79,14 @@ module.exports = {
          * Change one collection record.
          * 
          * Sample use:
-         * flow.updateOne("items").change({title: "title"}).into({title: "new title"});
+         * flow.updateOneIn("items").change({title: "title"}).into({title: "new title"});
          * 
          * @param {String} collection
          * @returns {Array}
          */
 
-        this.updateOne = (collection) => {
-            return [collection, 'updateOne'];
+        this.updateOneIn = (collection) => {
+            return [collection, 'update$'];
         }
 
 
@@ -118,9 +116,10 @@ module.exports = {
             let from = this[1];
             let op = this[2];
 
-            if(op === 'updateOne') {
+            if(op === 'update$') {
                 flow.mongoose.connection.collection(name).updateOne(from, {$set: into});
             } else {
+                console.log("asd");
                 flow.mongoose.connection.collection(name).updateMany(from, {$set: into});
             }
         } 
@@ -144,13 +143,13 @@ module.exports = {
          * Remove one from collection.
          * 
          * Sample use:
-         * flow.removeOne("items").where({title: "title"});
+         * flow.removeOneFrom("items").where({title: "title"});
          *  
          * @param {String} collection 
          */
 
-        this.removeOne = (collection) => {
-            return [collection, 'removeOne'];
+        this.removeOneFrom = (collection) => {
+            return [collection, 'remove$'];
         }
 
 
@@ -173,14 +172,14 @@ module.exports = {
          * Find one record matching condition.
          * 
          * Sample use:
-         * flow.findOne("items").where({title: "title"});
+         * flow.findOneIn("items").where({title: "title"});
          * 
          * @param {String} collection
          * @returns {Array}
          */
 
-        this.findOne = (collection) => {
-            return [collection, 'findOne'];
+        this.findOneIn = (collection) => {
+            return [collection, 'find$'];
         }
 
 
@@ -196,20 +195,29 @@ module.exports = {
             let name = this[0].toString();
             let op = this[1];
 
-            if(op.indexOf('find') > -1) {
-                if(op === 'findOne') {
-                    let result = await flow.mongoose.connection.collection(name).findOne(values);
-                    return result;
+            try {
+                if(~op.indexOf('find')) {
+
+                    if(op === 'find$') {
+                        let result = await flow.mongoose.connection.collection(name).findOne(values);
+                        return result || {shape: null};
+                    } else {
+                        let result = await flow.mongoose.connection.collection(name).find(values);
+                        return result.toArray() || [{shape: null}];
+                    }
+
                 } else {
-                    let result = await flow.mongoose.connection.collection(name).find(values);
-                    return result.toArray();
+
+                    if(op === 'remove$') {
+                        flow.mongoose.connection.collection(name).deleteOne(values);
+                    } else {
+                        flow.mongoose.connection.collection(name).deleteMany(values);
+                    }
+
                 }
-            } else {
-                if(op === 'removeOne') {
-                    flow.mongoose.connection.collection(name).deleteOne(values);
-                } else {
-                    flow.mongoose.connection.collection(name).deleteMany(values);
-                }
+            }
+            catch(exception) {
+                return {shape: null};
             }
         }
     }
