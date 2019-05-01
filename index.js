@@ -42,8 +42,6 @@ flow = new pipes.flow(mongoose);
 flow.feed(collections.dataSet);
 
 
-
-
 /* * * * * * * * * * * * *
  *                       *
  *   Endpoints setup >   *
@@ -63,8 +61,6 @@ app.get('/api/get', async (req, res) => {
 });
 
 
-
-
 /**
  * Get keyed value.
  * 
@@ -75,8 +71,6 @@ app.get('/api/get/:key', async (req, res) => {
     let data = await flow.findOneIn('generals').where({_id: req.params.key});
     res.send({shape: data.shape});
 });
-
-
 
 
 /**
@@ -94,8 +88,6 @@ app.post('/api/get', async (req, res) => {
 });
 
 
-
-
 /**
  * Set global value.
  * 
@@ -111,8 +103,6 @@ app.get('/api/set/:value', async (req, res) => {
 });
 
 
-
-
 /**
  * Set keyed value.
  * 
@@ -126,8 +116,6 @@ app.get('/api/set/:key/:value', async (req, res) => {
     let result = await flow.insertInto('generals').values({shape: req.params.value, _id: req.params.key});
     res.sendStatus(result);
 });
-
-
 
 
 /**
@@ -147,8 +135,6 @@ app.post('/api/set', async (req, res) => {
 });
 
 
-
-
 /**
  * Remove keyed value.
  * 
@@ -159,8 +145,6 @@ app.get('/api/remove/:key', (req, res) => {
     flow.removeOneFrom('generals').where({_id: req.params.key});
     res.sendStatus(200);
 });
-
-
 
 
 /**
@@ -175,8 +159,6 @@ app.post('/api/remove', (req, res) => {
 });
 
 
-
-
 /**
  * List all data.
  * 
@@ -189,8 +171,6 @@ app.get('/api/list', async (req, res) => {
 });
 
 
-
-
 /**
  * Redirect to global value.
  */
@@ -199,8 +179,6 @@ app.get('/kick', async (req, res) => {
     let data = await flow.findOneIn('generals').where({_id: 'primary'});
     res.redirect(data.shape);
 });
-
-
 
 
 /**
@@ -213,8 +191,6 @@ app.get('/kick/:key', async (req, res) => {
 });
 
 
-
-
 /**
  * Root path.
  */
@@ -222,8 +198,6 @@ app.get('/kick/:key', async (req, res) => {
 app.get('/', (req, res) => {
     res.sendFile('/index.html');
 });
-
-
 
 
 /**
