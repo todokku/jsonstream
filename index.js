@@ -37,6 +37,8 @@ flow.feed(collections.dataSet);
 
 /**
  * Get global value.
+ * 
+ * HTTP method: GET.
  */
 
 app.get('/api/get', async (req, res) => {
@@ -45,8 +47,12 @@ app.get('/api/get', async (req, res) => {
 });
 
 
+
+
 /**
  * Get keyed value.
+ * 
+ * HTTP method: GET.
  */
 
 app.get('/api/get/:key', async (req, res) => {
@@ -55,8 +61,29 @@ app.get('/api/get/:key', async (req, res) => {
 });
 
 
+
+
+/**
+ * POST get value.
+ * 
+ * HTTP method: POST.
+ */
+
+app.post('/api/get', async (req, res) => {
+
+    let _id = req.body.key || 'primary';
+
+    let data = await flow.findOneIn('generals').where({_id});
+    res.send({shape: data.shape});
+});
+
+
+
+
 /**
  * Set global value.
+ * 
+ * HTTP method: GET.
  */
 
 app.get('/api/set/:value', async (req, res) => {
@@ -68,8 +95,12 @@ app.get('/api/set/:value', async (req, res) => {
 });
 
 
+
+
 /**
  * Set keyed value.
+ * 
+ * HTTP method: GET.
  */
 
 app.get('/api/set/:key/:value', async (req, res) => {
@@ -81,8 +112,31 @@ app.get('/api/set/:key/:value', async (req, res) => {
 });
 
 
+
+
+/**
+ * POST set value.
+ * 
+ * HTTP method: POST.
+ */
+
+app.post('/api/set', async (req, res) => {
+
+    let _id = req.body.key || 'primary';
+
+    await flow.removeOneFrom('generals').where({_id});
+
+    let result = await flow.insertInto('generals').values({shape: req.params.value, _id});
+    res.sendStatus(result);
+});
+
+
+
+
 /**
  * Remove keyed value.
+ * 
+ * HTTP method: GET.
  */
 
 app.get('/api/remove/:key', (req, res) => {
@@ -91,14 +145,34 @@ app.get('/api/remove/:key', (req, res) => {
 });
 
 
+
+
+/**
+ * POST remove keyed value.
+ * 
+ * HTTP method: POST.
+ */
+
+app.post('/api/remove', (req, res) => {
+    flow.removeOneFrom('generals').where({_id: req.body.key});
+    res.sendStatus(200);
+});
+
+
+
+
 /**
  * List all data.
+ * 
+ * HTTP method: GET.
  */
 
 app.get('/api/list', async (req, res) => {
     let data = await flow.find('generals').where({});
     res.send(data);
 });
+
+
 
 
 /**
@@ -111,6 +185,8 @@ app.get('/kick', async (req, res) => {
 });
 
 
+
+
 /**
  * Redirect to keyed value.
  */
@@ -121,6 +197,8 @@ app.get('/kick/:key', async (req, res) => {
 });
 
 
+
+
 /**
  * Root path.
  */
@@ -128,6 +206,8 @@ app.get('/kick/:key', async (req, res) => {
 app.get('/', (req, res) => {
     res.sendFile('/index.html');
 });
+
+
 
 
 /**
