@@ -1,5 +1,5 @@
 module.exports = {
-    collection: [
+    dataSet: [
         {
             name: 'generals',
 

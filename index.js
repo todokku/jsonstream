@@ -9,7 +9,7 @@ const express   = require('express'),
     serveStatic = require('serve-static')
     settings    = require('./core/settings.js'),
     pipes       = require('./core/pipes.js'),
-    schemas     = require('./core/schemas.js'),
+    collections = require('./core/collections.js'),
 
 
 /**
@@ -32,7 +32,7 @@ app.use(express.static('fe/dist'));
 
 // Flow setup.
 flow = new pipes.flow(mongoose);
-flow.feed(schemas.collection);
+flow.feed(collections.dataSet);
 
 
 /**
