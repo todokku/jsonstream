@@ -199,10 +199,10 @@ module.exports = {
 
                     if(op === 'find$') {
                         let result = await flow.mongoose.connection.collection(name).findOne(values);
-                        return result || {shape: null};
+                        return result || {};
                     } else {
                         let result = await flow.mongoose.connection.collection(name).find(values);
-                        return result.toArray() || [{shape: null}];
+                        return result.toArray() || [];
                     }
 
                 } else {
@@ -216,7 +216,7 @@ module.exports = {
                 }
             }
             catch(exception) {
-                return {shape: null};
+                return {};
             }
         }
     }
