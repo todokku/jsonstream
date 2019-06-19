@@ -25,7 +25,7 @@ module.exports = {
          */
 
         this.feed = (feed) => {
-            for(let i=0; i<feed.length; i++) {
+            for(let i in feed) {
                 this.schemas[feed[i].name] = new this.mongoose.Schema(feed[i].template, {strict: true});
             }
         },
