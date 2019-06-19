@@ -1,3 +1,7 @@
-# jsonstream
+<p align="center"><img src="https://i.imgur.com/NGF5UOp.png" width="300"></p>
 
-My collection of API endpoints hosted on Heroku, used in other projects.
+
+
+#jsonstream
+
+Public API service. Find more at https://jsonstream.herokuapp.com.
