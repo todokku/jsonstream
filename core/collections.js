@@ -1,3 +1,7 @@
+/**
+ * Collections defining storage architecture.
+ */
+
 module.exports = {
     dataSet: [
         {

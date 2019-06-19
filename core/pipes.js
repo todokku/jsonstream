@@ -50,6 +50,7 @@ module.exports = {
          * Execute insertion process.
          * 
          * @param {Object} values
+         * @returns {Number}
          */
 
         Array.prototype.values = async function(values) {
@@ -110,6 +111,7 @@ module.exports = {
         Array.prototype.change = function(from) {
             let name = this[0].toString();
             let op = this[1];
+
             return [name, from, op];
         }
 
@@ -141,6 +143,7 @@ module.exports = {
          * flow.remove('items').where({title: 'title'});
          *  
          * @param {String} collection 
+         * @returns {Array}
          */
 
         this.remove = (collection) => {
@@ -155,6 +158,7 @@ module.exports = {
          * flow.removeOneFrom('items').where({title: 'title'});
          *  
          * @param {String} collection 
+         * @returns {Array}
          */
 
         this.removeOneFrom = (collection) => {
