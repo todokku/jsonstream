@@ -2,6 +2,30 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox
 
 if (workbox) {
 
+  // Manifest generator.
+  workbox.precaching.precacheAndRoute([
+  {
+    "url": "css/app.575211cb.css",
+    "revision": "c5e81780fc65000583f676073c502198"
+  },
+  {
+    "url": "favicon.ico",
+    "revision": "d551a294235e7c933d5e2d5c000018a5"
+  },
+  {
+    "url": "index.html",
+    "revision": "cc9babdad8687bc233775f7f997436db"
+  },
+  {
+    "url": "js/app.4e1af2a3.js",
+    "revision": "710ed199f55d7d97e5174eb0ed6d29d7"
+  },
+  {
+    "url": "js/chunk-vendors.8a1b2796.js",
+    "revision": "1c02b0241b34f8f474468a01159fd24a"
+  }
+]);
+
   // Cache JS and CSS files.
   workbox.routing.registerRoute(
     /\.(?:js|css)$/,
