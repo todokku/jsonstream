@@ -1,0 +1,21 @@
+{
+    "short_name": "jsonstream",
+    "name": "jsonstream",
+    "icons": [
+      {
+        "src": "favicon.ico",
+        "type": "image/ico",
+        "sizes": "48x48"
+      },
+      {
+        "src": "jsonstream.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#ff6666",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#ff6666"
+  }
