@@ -34,8 +34,9 @@ db = mongoose.connection;
 app.use(bodyParser.json());
 
 
-app.get("*", function(request, response){
+app.get("*", function(request, response, next){
     response.redirect("https://" + request.headers.host + request.url);
+    next();
   });
 
   // Serve static files.
