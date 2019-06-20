@@ -14,7 +14,7 @@ if (workbox) {
   },
   {
     "url": "index.html",
-    "revision": "3419901f77c723ba413e251e339339c7"
+    "revision": "ec4e2da8728d49f41ce966477fe8bf25"
   },
   {
     "url": "js/app.c56a0140.js",
