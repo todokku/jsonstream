@@ -16,6 +16,7 @@ const express   = require('express'),
     settings    = require('./core/settings.js'),
     pipes       = require('./core/pipes.js'),
     collections = require('./core/collections.js'),
+    https       = require('express-http-to-https');
 
 
 /**
@@ -26,6 +27,8 @@ const express   = require('express'),
 app = express();
 app.use(cors());
 
+app.use(https.redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
+
 // Mongoose setup.
 mongoose.connect(settings.dbUrl, {useNewUrlParser: true});
 db = mongoose.connection;
@@ -33,16 +36,8 @@ db = mongoose.connection;
 // Body parser setup.
 app.use(bodyParser.json());
 
-app.get("*", function(request, response, next){
-    response.redirect("https://" + request.headers.host + request.url);
-  });
-
 // Serve static files.
-app.use((req, res, next) => {
 app.use('/', express.static('fe/dist'));
-});
-
-
 
 // Flow setup.
 flow = new pipes.flow(mongoose);
