@@ -40,7 +40,6 @@ app.get("*", function(request, response, next){
 // Serve static files.
 app.use((req, res, next) => {
 app.use('/', express.static('fe/dist'));
-next();
 });
 
 
