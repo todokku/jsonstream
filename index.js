@@ -47,6 +47,7 @@ app.use((req, res, next) => {
 
     // Protocol is secure - go on.
     } else {
+        app.use(express.static('fe/dist'));
         next();
     }
 });
@@ -199,10 +200,6 @@ app.get('/kick/:key', async (req, res) => {
     let data = await flow.findOneIn('generals').where({_id: req.params.key});
     res.redirect(data.shape);
 });
-
-
-// Serve static files.
-app.use(express.static('fe/dist'));
 
 
 /**
