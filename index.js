@@ -13,7 +13,6 @@ const express   = require('express'),
     bodyParser  = require('body-parser');
     mongoose    = require('mongoose'),
     cors        = require('cors'),
-    serveStatic = require('serve-static')
     settings    = require('./core/settings.js'),
     pipes       = require('./core/pipes.js'),
     collections = require('./core/collections.js'),
@@ -38,6 +37,9 @@ app.use(bodyParser.json());
 app.use(function(request, response, next){
     if(request.protocol === "http"){
       response.redirect("https://" + request.headers.host + request.url);
+    } else {
+        app.use(express.static('fe/dist'));
+        next();
     }
 });
 
