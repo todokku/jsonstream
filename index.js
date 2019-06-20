@@ -33,15 +33,16 @@ db = mongoose.connection;
 // Body parser setup.
 app.use(bodyParser.json());
 
+app.get("*", function(request, response, next){
+    response.redirect("https://" + request.headers.host + request.url);
+  });
+
 // Serve static files.
 app.use((req, res, next) => {
 app.use('/', express.static('fe/dist'));
 next();
 });
 
-app.get("*", function(request, response, next){
-    response.redirect("https://" + request.headers.host + request.url);
-  });
 
 
 // Flow setup.
