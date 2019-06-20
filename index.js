@@ -38,8 +38,6 @@ app.use(bodyParser.json());
 app.use(function(request, response, next){
     if(request.protocol === "http"){
       response.redirect("https://" + request.headers.host + request.url);
-    } else {
-    next();
     }
 });
 
