@@ -27,6 +27,7 @@ const express   = require('express'),
 app = express();
 app.use(cors());
 
+// Force https protocol.
 app.use(https.redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
 
 // Mongoose setup.
