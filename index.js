@@ -38,6 +38,19 @@ app.use(bodyParser.json());
 flow = new pipes.flow(mongoose);
 flow.feed(collections.dataSet);
 
+// Force https.
+app.use((req, res, next) => {
+
+    // Http protocol.
+    if(!req.secure) {
+        res.redirect("https://" + req.headers.host + req.url);
+
+    // Protocol is secure - go on.
+    } else {
+        next();
+    }
+});
+
 
 /* * * * * * * * * * * * *
  *                       *
@@ -188,25 +201,8 @@ app.get('/kick/:key', async (req, res) => {
 });
 
 
-/**
- * Root path.
- */
-
-app.get('/', (req, res, next) => {
-    app.use(express.static('fe/dist'));
-    next();
-});
-
-
-/**
- * Force https.
- */
-
-app.use((req, res, next) => {
-    if(!req.secure) {
-        res.redirect("https://" + req.headers.host + req.url);
-    }
-});
+// Serve static files.
+app.use(express.static('fe/dist'));
 
 
 /**
