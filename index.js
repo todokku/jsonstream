@@ -41,6 +41,13 @@ app.use(express.static('fe/dist'));
 flow = new pipes.flow(mongoose);
 flow.feed(collections.dataSet);
 
+// Force https.
+app.use((request, response) => {
+    if(!request.secure) {
+        response.redirect("https://" + request.headers.host + request.url);
+    }
+});
+
 
 /* * * * * * * * * * * * *
  *                       *
