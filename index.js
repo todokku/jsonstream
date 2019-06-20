@@ -33,17 +33,6 @@ db = mongoose.connection;
 // Body parser setup.
 app.use(bodyParser.json());
 
-
-app.use(function(request, response, next){
-    if(request.protocol === "http"){
-      response.redirect("https://" + request.headers.host + request.url);
-    } else {
-        app.use(express.static('fe/dist'));
-        next();
-    }
-});
-
-
 // Serve static files.
 app.use(express.static('fe/dist'));
 
