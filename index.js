@@ -34,19 +34,9 @@ db = mongoose.connection;
 // Body parser setup.
 app.use(bodyParser.json());
 
-// Servestatic setup.
-app.use(express.static('fe/dist'));
-
 // Flow setup.
 flow = new pipes.flow(mongoose);
 flow.feed(collections.dataSet);
-
-// Force https.
-app.use((request, response) => {
-    if(!request.secure) {
-        response.redirect("https://" + request.headers.host + request.url);
-    }
-});
 
 
 /* * * * * * * * * * * * *
@@ -202,8 +192,20 @@ app.get('/kick/:key', async (req, res) => {
  * Root path.
  */
 
-app.get('/', (req, res) => {
-    res.sendFile('/index.html');
+app.get('/', (req, res, next) => {
+    app.use(express.static('fe/dist'));
+    next();
+});
+
+
+/**
+ * Force https.
+ */
+
+app.use((req, res, next) => {
+    if(!req.secure) {
+        res.redirect("https://" + req.headers.host + req.url);
+    }
 });
 
 
