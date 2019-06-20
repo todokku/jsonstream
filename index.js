@@ -34,6 +34,18 @@ db = mongoose.connection;
 // Body parser setup.
 app.use(bodyParser.json());
 
+
+app.use(function(request, response){
+    if(!request.secure){
+      response.redirect("https://" + request.headers.host + request.url);
+    }
+    next();
+});
+
+
+// Serve static files.
+app.use(express.static('fe/dist'));
+
 // Flow setup.
 flow = new pipes.flow(mongoose);
 flow.feed(collections.dataSet);
@@ -186,10 +198,6 @@ app.get('/kick/:key', async (req, res) => {
     let data = await flow.findOneIn('generals').where({_id: req.params.key});
     res.redirect(data.shape);
 });
-
-
-// Serve static files.
-app.use(express.static('fe/dist'));
 
 
 /**
