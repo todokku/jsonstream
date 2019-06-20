@@ -35,10 +35,10 @@ db = mongoose.connection;
 app.use(bodyParser.json());
 
 
-app.use(function(request, response){
-    if(!request.secure){
+app.use(function(request, response, next){
+    /*if(!request.secure){
       response.redirect("https://" + request.headers.host + request.url);
-    }
+    }*/
     next();
 });
 
