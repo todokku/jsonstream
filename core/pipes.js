@@ -128,7 +128,7 @@ module.exports = {
             let from = this[1];
             let op = this[2];
 
-            if(op === 'update$') {
+            if (op === 'update$') {
                 flow.mongoose.connection.collection(name).updateOne(from, {$set: into});
             } else {
                 flow.mongoose.connection.collection(name).updateMany(from, {$set: into});
@@ -209,9 +209,9 @@ module.exports = {
             let op = this[1];
 
             try {
-                if(~op.indexOf('find')) {
+                if (~op.indexOf('find')) {
 
-                    if(op === 'find$') {
+                    if (op === 'find$') {
                         let result = await flow.mongoose.connection.collection(name).findOne(values);
                         return result || {};
                     } else {
@@ -221,7 +221,7 @@ module.exports = {
 
                 } else {
 
-                    if(op === 'remove$') {
+                    if (op === 'remove$') {
                         flow.mongoose.connection.collection(name).deleteOne(values);
                     } else {
                         flow.mongoose.connection.collection(name).deleteMany(values);
