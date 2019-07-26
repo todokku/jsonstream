@@ -1,4 +1,4 @@
-<p align="center"><img src="https://i.imgur.com/NGF5UOp.png" width="300"></p>
+<p align="center"><img src="https://i.imgur.com/lBieCZn.png" width="300"></p>
 
 
 
