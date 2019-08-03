@@ -66,6 +66,7 @@ module.exports = {
             }
             catch(exception) {
                 console.log(`Exception occured during saving.`);
+                console.log(exception);
                 return 400;
             }
         }
