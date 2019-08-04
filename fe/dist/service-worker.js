@@ -5,8 +5,8 @@ if (workbox) {
   // Manifest generator.
   workbox.precaching.precacheAndRoute([
   {
-    "url": "css/app.471d3ffb.css",
-    "revision": "a8244229ecceeee8753d885a143159e8"
+    "url": "css/app.b94a3eb8.css",
+    "revision": "b40bdb5f5794e12c03d9030fae381004"
   },
   {
     "url": "favicon.ico",
@@ -14,11 +14,11 @@ if (workbox) {
   },
   {
     "url": "index.html",
-    "revision": "9d34a0471a1456b15921e174027b18bc"
+    "revision": "e38179919a5adf04d800c5e1887b27c3"
   },
   {
-    "url": "js/app.cff7423e.js",
-    "revision": "a9b39c535b6496296a88c78c9c045d7c"
+    "url": "js/app.911bbede.js",
+    "revision": "3644aa4d636307efbb1c88b7ec1e7ed5"
   },
   {
     "url": "js/chunk-vendors.8a1b2796.js",
