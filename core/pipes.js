@@ -25,7 +25,7 @@ module.exports = {
          */
 
         this.feed = (feed) => {
-            for(let i in feed) {
+            for(let i=0; i < feed.length; i++) {
                 this.schemas[feed[i].name] = new this.mongoose.Schema(feed[i].template, {strict: true});
             }
         },
@@ -63,9 +63,9 @@ module.exports = {
                 await build.save();
                 console.log(`Inserted into ${name}.`);
                 return 200;
-            }
-            catch(exception) {
-                console.log(`Exception occured during saving.`);
+
+            } catch(exception) {
+                console.log(`Exception occured during saving into ${name}.`);
                 console.log(exception);
                 return 400;
             }
@@ -131,8 +131,10 @@ module.exports = {
 
             if (op === 'update$') {
                 flow.mongoose.connection.collection(name).updateOne(from, {$set: into});
+                console.log(`Update one performed on ${name}.`);
             } else {
                 flow.mongoose.connection.collection(name).updateMany(from, {$set: into});
+                console.log(`Update many performed on ${name}.`);
             }
         } 
 
@@ -210,13 +212,15 @@ module.exports = {
             let op = this[1];
 
             try {
-                if (~op.indexOf('find')) {
+                if (op.includes('find')) {
 
                     if (op === 'find$') {
                         let result = await flow.mongoose.connection.collection(name).findOne(values);
+                        console.log(`Finding one in ${name}.`);
                         return result || {};
                     } else {
                         let result = await flow.mongoose.connection.collection(name).find(values);
+                        console.log(`Finding in ${name}.`);
                         return result.toArray() || [];
                     }
 
@@ -224,13 +228,14 @@ module.exports = {
 
                     if (op === 'remove$') {
                         flow.mongoose.connection.collection(name).deleteOne(values);
+                        console.log(`Deleted one from ${name}.`);
                     } else {
                         flow.mongoose.connection.collection(name).deleteMany(values);
+                        console.log(`Deleted many from ${name}.`);
                     }
 
                 }
-            }
-            catch(exception) {
+            } catch(exception) {
                 return {};
             }
         }
