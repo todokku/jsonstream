@@ -3,28 +3,7 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox
 if (workbox) {
 
   // Manifest generator.
-  workbox.precaching.precacheAndRoute([
-  {
-    "url": "css/app.8f4e36fd.css",
-    "revision": "fb4c279c2a4f6b05d2ec7ded010e3c39"
-  },
-  {
-    "url": "favicon.ico",
-    "revision": "b32d14b29042bdfec6260b3183098e05"
-  },
-  {
-    "url": "index.html",
-    "revision": "42e210299c1c59a3827a518d086e0e06"
-  },
-  {
-    "url": "js/app.59d33689.js",
-    "revision": "2b6bb42058489ec2e8e69444529b8831"
-  },
-  {
-    "url": "js/chunk-vendors.8a1b2796.js",
-    "revision": "1c02b0241b34f8f474468a01159fd24a"
-  }
-]);
+  workbox.precaching.precacheAndRoute([]);
 
   // Cache JS and CSS files.
   workbox.routing.registerRoute(
