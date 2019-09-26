@@ -4,7 +4,6 @@
  *                       *
  * * * * * * * * * * * * *
 
-
 /**
  * Require necessary modules.
  */
@@ -50,7 +49,6 @@ flow.feed(collections.dataSet);
  *   Endpoints setup >   *
  *                       *
  * * * * * * * * * * * * *
-
 
 /**
  * Get global value.
