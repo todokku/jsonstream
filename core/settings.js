@@ -1,6 +1,4 @@
-/**
- * Global settings.
- */
+// Global settings.
 
 module.exports = {
     port: '7787',
