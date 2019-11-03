@@ -7,29 +7,23 @@
  * @version 1.0.2
  * @license MIT
  */
-
 module.exports = {
 
     flow: function(_inst) {
         
-        /**
-         * Necessary local variables for flow.
-         */
-
         this.mongoose = _inst;
         this.schemas = new Object();
 
-
         /**
          * Build schemas from user defined collection array.
+         * 
+         * @param feed - Mongoose schema defining storage shape
          */
-
         this.feed = (feed) => {
             for(let i=0; i < feed.length; i++) {
                 this.schemas[feed[i].name] = new this.mongoose.Schema(feed[i].template, {strict: true});
             }
         },
-
 
         /**
          * Insert record into collection.
@@ -37,22 +31,19 @@ module.exports = {
          * Sample use:
          * flow.insertInto('items').values({title: 'title', content: 'content'});
          * 
-         * @param {String} collection
-         * @returns {Array}
+         * @param collection - Collection name
+         * @returns Array-ized collection
          */
-
         this.insertInto = (collection) => {
             return [collection];
         }
 
-
         /**
          * Execute insertion process.
          * 
-         * @param {Object} values
-         * @returns {Number}
+         * @param values - Object to be inserted into db
+         * @returns Status code 
          */
-
         Array.prototype.values = async function(values) {
 
             let name = this[0].toString();
@@ -64,13 +55,12 @@ module.exports = {
                 console.log(`Inserted into ${name}.`);
                 return 200;
 
-            } catch(exception) {
+            } catch (exception) {
                 console.log(`Exception occured during saving into ${name}.`);
                 console.log(exception);
                 return 400;
             }
         }
-
 
         /**
          * Change ALL collection records.
@@ -78,14 +68,12 @@ module.exports = {
          * Sample use:
          * flow.update('items').change({title: 'title'}).into({title: 'new title'});
          * 
-         * @param {String} collection
-         * @returns {Array}
+         * @param collection - Collection name
+         * @returns Packed metadata
          */
-
         this.update = (collection) => {
             return [collection, 'update'];
         }
-
 
         /**
          * Change one collection record.
@@ -93,36 +81,31 @@ module.exports = {
          * Sample use:
          * flow.updateOneIn('items').change({title: 'title'}).into({title: 'new title'});
          * 
-         * @param {String} collection
-         * @returns {Array}
+         * @param collection - Collection name
+         * @returns Packed metadata
          */
-
         this.updateOneIn = (collection) => {
             return [collection, 'update$'];
         }
 
-
         /**
          * Part of change process chain. Specify change condition.
          * 
-         * @param {Object} from
-         * @returns {Array}
+         * @param from - Data object we are changing
+         * @returns Packed metadata
          */
-
         Array.prototype.change = function(from) {
             let name = this[0].toString();
             let op = this[1];
 
             return [name, from, op];
         }
-
         
         /**
          * Finish change process chain.
          * 
-         * @param {Object} into
+         * @param into - Data object we are seeking
          */
-
         Array.prototype.into = function(into) {
 
             let name = this[0];
@@ -136,8 +119,7 @@ module.exports = {
                 flow.mongoose.connection.collection(name).updateMany(from, {$set: into});
                 console.log(`Update many performed on ${name}.`);
             }
-        } 
-
+        }
 
         /**
          * Remove all records from collection.
@@ -145,14 +127,12 @@ module.exports = {
          * Sample use:
          * flow.remove('items').where({title: 'title'});
          *  
-         * @param {String} collection 
-         * @returns {Array}
+         * @param collection - Collection name 
+         * @returns Packed metadata
          */
-
         this.remove = (collection) => {
             return [collection, 'remove'];
         }
-
 
         /**
          * Remove one from collection.
@@ -160,14 +140,12 @@ module.exports = {
          * Sample use:
          * flow.removeOneFrom('items').where({title: 'title'});
          *  
-         * @param {String} collection 
-         * @returns {Array}
+         * @param collection - Collection name
+         * @returns Packed metadata
          */
-
         this.removeOneFrom = (collection) => {
             return [collection, 'remove$'];
         }
-
 
         /**
          * Find one record matching condition.
@@ -175,14 +153,12 @@ module.exports = {
          * Sample use:
          * flow.find('items').where({title: 'title'});
          * 
-         * @param {String} collection
-         * @returns {Array}
+         * @param collection - Collection name
+         * @returns Packed metadata
          */
-
         this.find = (collection) => {
             return [collection, 'find'];
         }
-
 
         /**
          * Find one record matching condition.
@@ -190,22 +166,19 @@ module.exports = {
          * Sample use:
          * flow.findOneIn('items').where({title: 'title'});
          * 
-         * @param {String} collection
-         * @returns {Array}
+         * @param collection - Collection name
+         * @returns Packed metadata
          */
-
         this.findOneIn = (collection) => {
             return [collection, 'find$'];
         }
 
-
         /**
          * Execute find/removal process.
          * 
-         * @param {Object} values
-         * @returns {Object}
+         * @param values - Object defining searched structure
+         * @returns Searched structure
          */
-
         Array.prototype.where = async function(values) {
 
             let name = this[0].toString();
