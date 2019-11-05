@@ -21,24 +21,24 @@ const express   = require('express'),
 /** Launch app prerequisites **/
 
 
-// Express setup
+// Express setup.
 app = express();
 app.use(cors());
 
-// Force https protocol
+// Force https protocol.
 app.use(https.redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
 
-// Mongoose setup
+// Mongoose setup.
 mongoose.connect(settings.dbUrl, {useNewUrlParser: true});
 db = mongoose.connection;
 
-// Body parser setup
+// Body parser setup.
 app.use(bodyParser.json());
 
-// Serve static files
+// Serve static files.
 app.use('/', express.static('fe/dist'));
 
-// Flow setup
+// Flow setup.
 flow = new pipes.flow(mongoose);
 flow.feed(collections.dataSet);
 
