@@ -2,11 +2,7 @@
  *                       *
  *  Application setup >  *
  *                       *
- * * * * * * * * * * * * *
-
-
-/** Require necessary modules */
-
+ * * * * * * * * * * * * */
 
 const express   = require('express'),
     bodyParser  = require('body-parser');
@@ -16,10 +12,6 @@ const express   = require('express'),
     pipes       = require('./core/pipes.js'),
     collections = require('./core/collections.js'),
     https       = require('express-http-to-https');
-
-
-/** Launch app prerequisites **/
-
 
 // Express setup.
 app = express();
@@ -42,12 +34,11 @@ app.use('/', express.static('fe/dist'));
 flow = new pipes.flow(mongoose);
 flow.feed(collections.dataSet);
 
-
 /* * * * * * * * * * * * *
  *                       *
  *   Endpoints setup >   *
  *                       *
- * * * * * * * * * * * * *
+ * * * * * * * * * * * * */
 
 /**
  * Get global value.
