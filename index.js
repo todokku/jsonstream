@@ -42,7 +42,6 @@ flow.feed(collections.dataSet);
 
 /**
  * Get global value.
- * 
  * HTTP method: GET.
  */
 app.get('/api/get', async (req, res) => {
@@ -53,7 +52,6 @@ app.get('/api/get', async (req, res) => {
 
 /**
  * Get keyed value.
- * 
  * HTTP method: GET.
  */
 app.get('/api/get/:key', async (req, res) => {
@@ -64,7 +62,6 @@ app.get('/api/get/:key', async (req, res) => {
 
 /**
  * POST get value.
- * 
  * HTTP method: POST.
  */
 app.post('/api/get', async (req, res) => {
@@ -78,7 +75,6 @@ app.post('/api/get', async (req, res) => {
 
 /**
  * Set global value.
- * 
  * HTTP method: GET.
  */
 app.get('/api/set/:value', async (req, res) => {
@@ -92,7 +88,6 @@ app.get('/api/set/:value', async (req, res) => {
 
 /**
  * Set keyed value.
- * 
  * HTTP method: GET.
  */
 app.get('/api/set/:key/:value', async (req, res) => {
@@ -106,7 +101,6 @@ app.get('/api/set/:key/:value', async (req, res) => {
 
 /**
  * POST set value.
- * 
  * HTTP method: POST.
  */
 app.post('/api/set', async (req, res) => {
@@ -122,7 +116,6 @@ app.post('/api/set', async (req, res) => {
 
 /**
  * Remove keyed value.
- * 
  * HTTP method: GET.
  */
 app.get('/api/remove/:key', (req, res) => {
@@ -133,7 +126,6 @@ app.get('/api/remove/:key', (req, res) => {
 
 /**
  * POST remove keyed value.
- * 
  * HTTP method: POST.
  */
 app.post('/api/remove', (req, res) => {
@@ -144,7 +136,6 @@ app.post('/api/remove', (req, res) => {
 
 /**
  * List all data.
- * 
  * HTTP method: GET.
  */
 app.get('/api/list', async (req, res) => {
