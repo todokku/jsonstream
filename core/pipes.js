@@ -208,7 +208,7 @@ module.exports = {
                     }
 
                 }
-            } catch(exception) {
+            } catch (exception) {
                 return {};
             }
         }
