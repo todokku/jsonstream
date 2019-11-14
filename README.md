@@ -6,9 +6,6 @@ Public API service that exposes plenty of endpoints of node.js back-end integrat
 
 | Endpoint  |  HTTP Method |
 | ------------- | ------------- |
-| /api/get | `POST` |
-| /api/set | `POST` |
-| /api/remove | `POST` |
 | /api/get  | `GET`  |
 | /api/get/:key  | `GET` |
 | /api/set/:value  | `GET`  |
@@ -17,5 +14,8 @@ Public API service that exposes plenty of endpoints of node.js back-end integrat
 | /api/list | `GET` |
 | /api/kick  | `GET` |
 | /api/kick/:key  | `GET` |
+| /api/get | `POST` |
+| /api/set | `POST` |
+| /api/remove | `POST` |
 
 Find more at https://jsonstream.herokuapp.com.
