@@ -5,7 +5,7 @@
  * * * * * * * * * * * * */
 
 const express   = require('express'),
-    bodyParser  = require('body-parser');
+    bodyParser  = require('body-parser'),
     mongoose    = require('mongoose'),
     cors        = require('cors'),
     settings    = require('./core/settings.js'),
@@ -14,7 +14,7 @@ const express   = require('express'),
     https       = require('express-http-to-https');
 
 // Express setup.
-app = express();
+const app = express();
 app.use(cors());
 
 // Force https protocol.
@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 app.use('/', express.static('fe/dist'));
 
 // Flow setup.
-flow = new pipes.flow(mongoose);
+const flow = new pipes.flow(mongoose);
 flow.feed(collections.dataSet);
 
 /* * * * * * * * * * * * *
