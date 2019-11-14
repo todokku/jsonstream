@@ -65,7 +65,6 @@ app.get('/api/get/:key', async (req, res) => {
  * HTTP method: POST.
  */
 app.post('/api/get', async (req, res) => {
-
     let _id = req.body.key || 'primary';
 
     let data = await flow.findOneIn('generals').where({_id});
@@ -78,7 +77,6 @@ app.post('/api/get', async (req, res) => {
  * HTTP method: GET.
  */
 app.get('/api/set/:value', async (req, res) => {
-
     await flow.removeOneFrom('generals').where({_id: 'primary'});
 
     let result = await flow.insertInto('generals').values({shape: req.params.value, _id: 'primary'});
@@ -91,7 +89,6 @@ app.get('/api/set/:value', async (req, res) => {
  * HTTP method: GET.
  */
 app.get('/api/set/:key/:value', async (req, res) => {
-
     await flow.removeOneFrom('generals').where({_id: req.params.key});
 
     let result = await flow.insertInto('generals').values({shape: req.params.value, _id: req.params.key});
@@ -104,7 +101,6 @@ app.get('/api/set/:key/:value', async (req, res) => {
  * HTTP method: POST.
  */
 app.post('/api/set', async (req, res) => {
-
     let _id = req.body.key || 'primary';
 
     await flow.removeOneFrom('generals').where({_id});
