@@ -9,7 +9,7 @@
  */
 module.exports = {
 
-    global.flow: function(_inst) {
+    flow: function(_inst) {
         
         this.mongoose = _inst;
         this.schemas = new Object();
