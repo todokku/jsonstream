@@ -23,7 +23,7 @@ module.exports = {
             for(let i=0; i < feed.length; i++) {
                 this.schemas[feed[i].name] = new this.mongoose.Schema(feed[i].template, {strict: true});
             }
-        },
+        }
 
         /**
          * Insert record into collection.

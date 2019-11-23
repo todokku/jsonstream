@@ -14,11 +14,11 @@ if (workbox) {
   },
   {
     "url": "index.html",
-    "revision": "d8b84647548b9d652f3a42c1fa337ce1"
+    "revision": "faf9a4d352778d2301028ec2f7372300"
   },
   {
-    "url": "js/app.348f7590.js",
-    "revision": "97044d70c220b57de943c79c2f9b9449"
+    "url": "js/app.50ba6f19.js",
+    "revision": "45b042070d32e84df9968e7e9715746f"
   },
   {
     "url": "js/chunk-vendors.4ed3ecb0.js",

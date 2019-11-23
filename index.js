@@ -14,7 +14,7 @@ const express   = require('express'),
     https       = require('express-http-to-https');
 
 // Express setup.
-app = express();
+const app = express();
 app.use(cors());
 
 // Force https protocol.
@@ -65,7 +65,6 @@ app.get('/api/get/:key', async (req, res) => {
  * HTTP method: POST.
  */
 app.post('/api/get', async (req, res) => {
-
     let _id = req.body.key || 'primary';
 
     let data = await global.flow.findOneIn('generals').where({_id});
@@ -79,7 +78,7 @@ app.post('/api/get', async (req, res) => {
  */
 app.get('/api/set/:value', async (req, res) => {
 
-    await global.flow.removeOneFrom('generals').where({_id: 'primary'});
+    await flow.removeOneFrom('generals').where({_id: 'primary'});
 
     let result = await global.flow.insertInto('generals').values({shape: req.params.value, _id: 'primary'});
     res.sendStatus(result);
@@ -92,7 +91,7 @@ app.get('/api/set/:value', async (req, res) => {
  */
 app.get('/api/set/:key/:value', async (req, res) => {
 
-    await global.flow.removeOneFrom('generals').where({_id: req.params.key});
+    await flow.removeOneFrom('generals').where({_id: req.params.key});
 
     let result = await global.flow.insertInto('generals').values({shape: req.params.value, _id: req.params.key});
     res.sendStatus(result);
@@ -104,7 +103,6 @@ app.get('/api/set/:key/:value', async (req, res) => {
  * HTTP method: POST.
  */
 app.post('/api/set', async (req, res) => {
-
     let _id = req.body.key || 'primary';
 
     await global.flow.removeOneFrom('generals').where({_id});
