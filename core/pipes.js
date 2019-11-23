@@ -9,7 +9,7 @@
  */
 module.exports = {
 
-    flow: function(_inst) {
+    global.flow: function(_inst) {
         
         this.mongoose = _inst;
         this.schemas = new Object();
@@ -29,7 +29,7 @@ module.exports = {
          * Insert record into collection.
          * 
          * Sample use:
-         * flow.insertInto('items').values({title: 'title', content: 'content'});
+         * global.flow.insertInto('items').values({title: 'title', content: 'content'});
          * 
          * @param collection - Collection name
          * @returns Array-ized collection
@@ -47,7 +47,7 @@ module.exports = {
         Array.prototype.values = async function(values) {
 
             let name = this[0].toString();
-            let model = flow.mongoose.model(name, flow.schemas[name]);
+            let model = global.flow.mongoose.model(name, global.flow.schemas[name]);
             let build = new model(values);
 
             try {
@@ -66,7 +66,7 @@ module.exports = {
          * Change ALL collection records.
          * 
          * Sample use:
-         * flow.update('items').change({title: 'title'}).into({title: 'new title'});
+         * global.flow.update('items').change({title: 'title'}).into({title: 'new title'});
          * 
          * @param collection - Collection name
          * @returns Packed metadata
@@ -79,7 +79,7 @@ module.exports = {
          * Change one collection record.
          * 
          * Sample use:
-         * flow.updateOneIn('items').change({title: 'title'}).into({title: 'new title'});
+         * global.flow.updateOneIn('items').change({title: 'title'}).into({title: 'new title'});
          * 
          * @param collection - Collection name
          * @returns Packed metadata
@@ -113,10 +113,10 @@ module.exports = {
             let op = this[2];
 
             if (op === 'update$') {
-                flow.mongoose.connection.collection(name).updateOne(from, {$set: into});
+                global.flow.mongoose.connection.collection(name).updateOne(from, {$set: into});
                 console.log(`Update one performed on ${name}.`);
             } else {
-                flow.mongoose.connection.collection(name).updateMany(from, {$set: into});
+                global.flow.mongoose.connection.collection(name).updateMany(from, {$set: into});
                 console.log(`Update many performed on ${name}.`);
             }
         }
@@ -125,7 +125,7 @@ module.exports = {
          * Remove all records from collection.
          * 
          * Sample use:
-         * flow.remove('items').where({title: 'title'});
+         * global.flow.remove('items').where({title: 'title'});
          *  
          * @param collection - Collection name 
          * @returns Packed metadata
@@ -138,7 +138,7 @@ module.exports = {
          * Remove one from collection.
          * 
          * Sample use:
-         * flow.removeOneFrom('items').where({title: 'title'});
+         * global.flow.removeOneFrom('items').where({title: 'title'});
          *  
          * @param collection - Collection name
          * @returns Packed metadata
@@ -151,7 +151,7 @@ module.exports = {
          * Find one record matching condition.
          * 
          * Sample use:
-         * flow.find('items').where({title: 'title'});
+         * global.flow.find('items').where({title: 'title'});
          * 
          * @param collection - Collection name
          * @returns Packed metadata
@@ -164,7 +164,7 @@ module.exports = {
          * Find one record matching condition.
          * 
          * Sample use:
-         * flow.findOneIn('items').where({title: 'title'});
+         * global.flow.findOneIn('items').where({title: 'title'});
          * 
          * @param collection - Collection name
          * @returns Packed metadata
@@ -188,11 +188,11 @@ module.exports = {
                 if (op.includes('find')) {
 
                     if (op === 'find$') {
-                        let result = await flow.mongoose.connection.collection(name).findOne(values);
+                        let result = await global.flow.mongoose.connection.collection(name).findOne(values);
                         console.log(`Finding one in ${name}.`);
                         return result || {};
                     } else {
-                        let result = await flow.mongoose.connection.collection(name).find(values);
+                        let result = await global.flow.mongoose.connection.collection(name).find(values);
                         console.log(`Finding in ${name}.`);
                         return result.toArray() || [];
                     }
@@ -200,10 +200,10 @@ module.exports = {
                 } else {
 
                     if (op === 'remove$') {
-                        flow.mongoose.connection.collection(name).deleteOne(values);
+                        global.flow.mongoose.connection.collection(name).deleteOne(values);
                         console.log(`Deleted one from ${name}.`);
                     } else {
-                        flow.mongoose.connection.collection(name).deleteMany(values);
+                        global.flow.mongoose.connection.collection(name).deleteMany(values);
                         console.log(`Deleted many from ${name}.`);
                     }
 
