@@ -2,7 +2,7 @@
 
 # JsonStream
 
-Public API service that exposes plenty of endpoints of node.js back-end integrated with database to be used as a persistent access-from-anywhere storage. The API itself is not RESTful (for example it allows user to perform removal operation over database using POST request) since it only offers GET and POST service endpoints by architecture definition.
+Public API service that exposes plenty of endpoints of node.js back-end integrated with database to be used as a persistent access-from-anywhere storage. The API itself is not RESTful (for example it allows user to perform removal operation over database using POST request) since it only offers GET and POST service endpoints by architectural definition.
 
 | Endpoint  |  HTTP Method |
 | ------------- | ------------- |
